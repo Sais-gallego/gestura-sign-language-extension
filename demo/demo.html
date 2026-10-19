@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestura - Estudio Interactivo de Lenguaje de Señas</title>
+  <style>
+    :root {
+      --bg: #09090b;
+      --card: #18181b;
+      --border: #27272a;
+      --primary: #2563eb;
+      --accent: #10b981;
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg); color: var(--text); padding: 2rem 1rem;
+      min-height: 100vh;
+    }
+    .container { max-width: 960px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 2rem; }
+    h1 { font-size: 2.2rem; font-weight: 800; color: #60a5fa; margin-bottom: 0.5rem; }
+    p.subtitle { color: var(--muted); font-size: 1.05rem; }
+    .studio-grid {
+      display: grid; grid-template-columns: 360px 1fr; gap: 2rem;
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      overflow: hidden; padding: 1.5rem;
+    }
+    @media (max-width: 768px) { .studio-grid { grid-template-columns: 1fr; } }
+    .avatar-wrapper {
+      background: #000; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);
+      text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    canvas { width: 100%; height: auto; display: block; }
+    .controls-panel {
+      display: flex; flex-direction: column; gap: 1.25rem;
+    }
+    .card-title { font-size: 1rem; font-weight: 700; color: #93c5fd; text-transform: uppercase; }
+    .input-row { display: flex; gap: 8px; }
+    textarea {
+      width: 100%; height: 80px; background: #27272a; border: 1px solid var(--border);
+      border-radius: 8px; color: white; padding: 10px; font-size: 13px; resize: none; outline: none;
+    }
+    textarea:focus { border-color: var(--primary); }
+    .btn {
+      background: var(--primary); color: white; border: none; padding: 10px 16px;
+      border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+    }
+    .btn:hover { background: #1d4ed8; }
+    .btn-group { display: flex; gap: 8px; }
+    .btn-secondary { background: #27272a; color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: #3f3f46; }
+    .chips-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip {
+      background: #27272a; border: 1px solid var(--border); color: var(--text);
+      border-radius: 16px; padding: 6px 12px; font-size: 12px; cursor: pointer;
+    }
+    .chip:hover { background: #3b82f6; color: white; }
+    .setting-item { display: flex; align-items: center; justify-content: space-between; font-size: 13px; }
+    select {
+      background: #27272a; border: 1px solid var(--border); color: white;
+      border-radius: 6px; padding: 6px 10px; font-size: 12px;
+    }
+    .info-box {
+      background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.3);
+      padding: 12px; border-radius: 8px; font-size: 12px; color: #bfdbfe; line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🤟 Gestura - Intérprete Virtual en Lenguaje de Señas</h1>
+      <p class="subtitle">Extensión y Asistente de Accesibilidad Web Universal</p>
+    </header>
+
+    <div class="studio-grid">
+      <div class="avatar-wrapper">
+        <canvas id="demoCanvas" width="360" height="320"></canvas>
+      </div>
+
+      <div class="controls-panel">
+        <div>
+          <h2 class="card-title">Texto a Interpretar</h2>
+          <textarea id="demoText" placeholder="Escribe cualquier palabra o frase en español o inglés... (ej: Hola amigo, gracias por tu ayuda)"></textarea>
+        </div>
+
+        <div class="btn-group">
+          <button id="btnPlay" class="btn">▶️ Interpretar</button>
+          <button id="btnPause" class="btn btn-secondary">⏸️ Pausa</button>
+          <button id="btnStop" class="btn btn-secondary">⏹️ Detener</button>
+        </div>
+
+        <div>
+          <label style="font-size: 12px; color: var(--muted); margin-bottom: 6px; display: block;">Frases Rápidas de Vocabulario:</label>
+          <div class="chips-grid">
+            <button class="chip" data-text="HOLA">Hola 👋</button>
+            <button class="chip" data-text="GRACIAS">Gracias 🙏</button>
+            <button class="chip" data-text="POR FAVOR">Por favor</button>
+            <button class="chip" data-text="AYUDA">Ayuda 🆘</button>
+            <button class="chip" data-text="AMIGO">Amigo 🤝</button>
+            <button class="chip" data-text="BIENVENIDO">Bienvenido</button>
+            <button class="chip" data-text="SI">Sí</button>
+            <button class="chip" data-text="NO">No</button>
+          </div>
+        </div>
+
+        <div class="setting-item">
+          <span>Velocidad de Interpretación:</span>
+          <select id="speedSelect">
+            <option value="0.5">0.5x (Lenta / Aprendizaje)</option>
+            <option value="0.75">0.75x</option>
+            <option value="1.0" selected>1.0x (Normal)</option>
+            <option value="1.5">1.5x (Fluida)</option>
+            <option value="2.0">2.0x (Rápida)</option>
+          </select>
+        </div>
+
+        <div class="info-box">
+          💡 <strong>Modo Extensión:</strong> Al navegar en Chrome, Edge o Firefox, simplemente selecciona cualquier texto en una página web y aparecerá el botón <code>🤟 Traducir a señas</code> para interpretarlo al instante.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../dictionary/signs_alphabet.js"></script>
+  <script src="../dictionary/signs_common.js"></script>
+  <script src="../content/avatar_engine.js"></script>
+  <script>
+    const canvas = document.getElementById('demoCanvas');
+    const avatar = new GesturaAvatarEngine(canvas);
+
+    const textArea = document.getElementById('demoText');
+    const btnPlay = document.getElementById('btnPlay');
+    const btnPause = document.getElementById('btnPause');
+    const btnStop = document.getElementById('btnStop');
+    const speedSelect = document.getElementById('speedSelect');
+    const chips = document.querySelectorAll('.chip');
+
+    btnPlay.addEventListener('click', () => {
+      const text = textArea.value.trim() || 'HOLA';
+      avatar.enqueueText(text);
+    });
+
+    btnPause.addEventListener('click', () => {
+      if (avatar.isPaused) {
+        avatar.resume();
+        btnPause.innerText = '⏸️ Pausa';
+      } else {
+        avatar.pause();
+        btnPause.innerText = '▶️ Reanudar';
+      }
+    });
+
+    btnStop.addEventListener('click', () => {
+      avatar.stop();
+      btnPause.innerText = '⏸️ Pausa';
+    });
+
+    speedSelect.addEventListener('change', (e) => {
+      avatar.setSpeed(parseFloat(e.target.value));
+    });
+
+    chips.forEach(c => {
+      c.addEventListener('click', () => {
+        const t = c.getAttribute('data-text');
+        textArea.value = t;
+        avatar.enqueueText(t);
+      });
+    });
+
+    // Initial greeting
+    setTimeout(() => {
+      avatar.enqueueText('BIENVENIDO');
+    }, 500);
+  </script>
+</body>
+</html>

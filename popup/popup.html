@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestura - Avatar de Lenguaje de Señas</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <header class="popup-header">
+      <div class="logo-row">
+        <span class="logo-icon">🤟</span>
+        <div>
+          <h2>Gestura</h2>
+          <span class="version">v1.0.0 • Accesibilidad Web</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="popup-body">
+      <label class="section-label">Traducción Rápida a Señas</label>
+      <div class="input-group">
+        <input type="text" id="popup-input" placeholder="Escribe una palabra o frase..." />
+        <button id="btn-popup-translate" class="btn-primary">Interpretar</button>
+      </div>
+
+      <div class="quick-chips">
+        <button class="chip" data-word="HOLA">Hola 👋</button>
+        <button class="chip" data-word="GRACIAS">Gracias 🙏</button>
+        <button class="chip" data-word="POR FAVOR">Por favor</button>
+        <button class="chip" data-word="AYUDA">Ayuda 🆘</button>
+        <button class="chip" data-word="AMIGO">Amigo 🤝</button>
+        <button class="chip" data-word="BIENVENIDO">Bienvenido</button>
+      </div>
+
+      <div class="settings-box">
+        <div class="setting-row">
+          <span>Velocidad de Señas:</span>
+          <select id="popup-speed">
+            <option value="0.5">0.5x (Lento)</option>
+            <option value="0.75">0.75x</option>
+            <option value="1.0" selected>1.0x (Normal)</option>
+            <option value="1.5">1.5x (Rápido)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="footer-actions">
+        <button id="btn-open-demo" class="btn-secondary">🖥️ Abrir Estudio de Pruebas Completo</button>
+      </div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

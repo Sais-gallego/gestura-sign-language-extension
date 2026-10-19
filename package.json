@@ -1,0 +1,24 @@
+{
+  "name": "gestura-sign-language-extension",
+  "version": "1.0.0",
+  "description": "Cross-browser accessibility extension featuring an interactive animated avatar that translates selected webpage text into sign language.",
+  "main": "content/avatar_engine.js",
+  "scripts": {
+    "test": "node tests/test_extension.js"
+  },
+  "keywords": [
+    "sign-language",
+    "accessibility",
+    "a11y",
+    "avatar",
+    "chrome-extension",
+    "firefox-addon",
+    "edge-extension",
+    "webextensions",
+    "manifest-v3",
+    "lsc",
+    "asl"
+  ],
+  "author": "Sergio Andrés Ipuz Saavedra",
+  "license": "MIT"
+}
