@@ -76,6 +76,46 @@
         { armR: { shoulder: 30, elbow: 60, handX: 40, handY: 10 }, head: { nod: 5 }, expression: 'smile', label: 'Brazo extendido con palma hacia arriba' },
         { armR: { shoulder: 10, elbow: 90, handX: 10, handY: 15 }, head: { nod: 10 }, expression: 'smile', label: 'La mano barre hacia el torso en señal de bienvenida' }
       ]
+    },
+    'TE QUIERO': {
+      word: 'TE QUIERO',
+      meaning: 'Afecto / I Love You (ILY 🤟)',
+      frames: [
+        { armR: { elbow: 90, handX: 30, handY: -10, ily: true }, head: { tilt: -5 }, expression: 'smile', label: 'Mano en signo ILY 🤟 (pulgar, índice y meñique extendidos)' },
+        { armR: { elbow: 90, handX: 35, handY: -15, ily: true }, head: { tilt: 5 }, expression: 'smile', label: 'Suave balanceo hacia adelante transmitiendo afecto' }
+      ]
+    },
+    'PERDON': {
+      word: 'PERDON',
+      meaning: 'Disculpa / Sorry',
+      frames: [
+        { armR: { elbow: 80, handX: 5, handY: 15, fist: true }, head: { nod: 10 }, expression: 'earnest', label: 'Puño derecho sobre el pecho' },
+        { armR: { elbow: 80, handX: 15, handY: 20, fist: true }, head: { nod: 10 }, expression: 'earnest', label: 'Movimiento circular sobre el corazón en señal de disculpa' }
+      ]
+    },
+    'DE NADA': {
+      word: 'DE NADA',
+      meaning: 'Respuesta de cortesía / You are welcome',
+      frames: [
+        { armR: { elbow: 85, handX: 15, handY: 25 }, head: { nod: 5 }, expression: 'smile', label: 'Palma abierta hacia arriba a la altura de la cintura' },
+        { armR: { elbow: 75, handX: 35, handY: 15 }, head: { nod: 10 }, expression: 'smile', label: 'La mano se desplaza suavemente hacia afuera con amabilidad' }
+      ]
+    },
+    'BUENOS DIAS': {
+      word: 'BUENOS DIAS',
+      meaning: 'Saludo matutino / Good morning',
+      frames: [
+        { armR: { elbow: 100, handX: 0, handY: -15 }, head: { nod: 5 }, expression: 'smile', label: 'Mano toca la barbilla (Bueno)' },
+        { armR: { elbow: 70, handX: 40, handY: -40 }, head: { nod: 5 }, expression: 'smile', label: 'El brazo se eleva emulando la salida del sol (Día)' }
+      ]
+    },
+    'ADIOS': {
+      word: 'ADIOS',
+      meaning: 'Despedida / Goodbye',
+      frames: [
+        { armR: { elbow: 90, handX: 45, handY: -40 }, head: { tilt: 5 }, expression: 'smile', label: 'Mano abierta a la altura de la cabeza' },
+        { armR: { elbow: 90, handX: 25, handY: -35 }, head: { tilt: -5 }, expression: 'smile', label: 'Ondeo lateral de la mano despidiéndose calurosamente' }
+      ]
     }
   };
 

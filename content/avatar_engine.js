@@ -154,14 +154,28 @@
         const armL_handX = (f.armL && f.armL.handX !== undefined) ? f.armL.handX : -60;
         const armL_handY = (f.armL && f.armL.handY !== undefined) ? f.armL.handY : 140;
 
+        let rFingers = [1, 1, 1, 1, 1];
+        if (f.armR) {
+          if (f.armR.fist) rFingers = [0, 0, 0, 0, 0];
+          else if (f.armR.ily) rFingers = [1, 1, 0, 0, 1]; // 🤟 I Love You sign
+          else if (f.armR.hook) rFingers = [0, 0.5, 0, 0, 0];
+          else if (f.armR.snap) rFingers = [0.2, 0.2, 0.2, 0, 0];
+        }
+
+        let lFingers = [1, 1, 1, 1, 1];
+        if (f.armL) {
+          if (f.armL.fist) lFingers = [0, 0, 0, 0, 0];
+          else if (f.armL.hook) lFingers = [0, 0.5, 0, 0, 0];
+        }
+
         this.targetPose = {
           head: { x: (f.head && f.head.shake) || 0, y: (f.head && f.head.nod) || 0, tilt: (f.head && f.head.tilt) || 0, nod: (f.head && f.head.nod) || 0 },
           eyes: { blink: false, lookX: 0 },
           mouth: { smile: (f.expression === 'smile' ? 0.8 : 0.4), open: (f.expression === 'agree' ? 0.3 : 0) },
           armR: { shoulderX: 45, shoulderY: 70, elbowX: 75, elbowY: 90, handX: armR_handX, handY: armR_handY },
           armL: { shoulderX: -45, shoulderY: 70, elbowX: -70, elbowY: 100, handX: armL_handX, handY: armL_handY },
-          handR: { fingers: [1, 1, 1, 1, 1], angle: 0 },
-          handL: { fingers: [1, 1, 1, 1, 1], angle: 0 },
+          handR: { fingers: rFingers, angle: 0 },
+          handL: { fingers: lFingers, angle: 0 },
           subtitle: item.label
         };
       }
